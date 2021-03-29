@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  vars:
+    consul_token: "b759c2df-d84e-87e1-bc53-8a662837a272"
+    consul_host: 172.16.4.2
+    consul_key: consul_test_kv/some/value
+    consul_key_public: public/some/value
+    consul_scheme: http
+    consul_port: 8500
+    dump_file: /tmp/consul_test_kv.pcap
+# what else do we test ?
+    consul_valid_dc: lemon-slice
+    consul_wrong_dc: something
+
+  tasks:
+
+#####
+# example for one-off test
+###
+#  - name: my call 
+#    include_tasks: tasks/http-dump.yml
+#    vars:
+#      lookup_string: "{{ lookup('consul_test_kv',consul_key_public , \
+#        host=consul_host , \
+#        scheme=consul_scheme ,\
+#        port=consul_port, \
+#        ) }}"
+
+#  - name: test upstream behaviour
+#    include_tasks: tasks/test.yml
+
+  - name: test  pr2126 b60b643 version behauviour
+    include_tasks: tasks/test_getoption.yml
+
+
+    
