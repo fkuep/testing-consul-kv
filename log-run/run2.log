@@ -1,0 +1,88 @@
+[laminar] Executing cfg/jobs/consul-kv-github.run
+I ran something
+repo: https://github.com/fkuep/testing-consul-kv.git 
+branch: main 
+From https://github.com/fkuep/testing-consul-kv
+   a809d95..2c15f92  main       -> origin/main
+Updating a809d95..2c15f92
+Fast-forward
+ tasks/test_other_params.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+/var/lib/laminar/run/consul-kv-github/19
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that
+the implicit localhost does not match 'all'
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [test upstream version behauviour on more parameters] *********************
+included: /var/lib/laminar/run/consul-kv-github/19/testing-consul-kv/tasks/test_other_params.yml for localhost
+
+TASK [lookup protected key , token , datacenter, recurse and index set] ********
+included: /var/lib/laminar/run/consul-kv-github/19/testing-consul-kv/tasks/http-dump.yml for localhost
+
+TASK [clear old tcpdump] *******************************************************
+ok: [localhost]
+
+TASK [start tcpdump] ***********************************************************
+changed: [localhost]
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [START LOOKUP AND HTTP LOG] ***********************************************
+fatal: [localhost]: FAILED! => {"msg": "An unhandled exception occurred while templating '{{ lookup('consul_test_kv',consul_key , host=consul_host , scheme=consul_scheme ,port=consul_port, recurse='yes',datacenter=consul_datacenter, index=1 , token=consul_token) }}'. Error was a <class 'ansible.errors.AnsibleError'>, original message: An unhandled exception occurred while running the lookup plugin 'consul_test_kv'. Error was a <class 'ansible.errors.AnsibleError'>, original message: Error locating 'consul_test_kv/some/value' in kv store. Error was rpc error making call: Permission denied"}
+...ignoring
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [kill tcpdump] ************************************************************
+changed: [localhost]
+
+TASK [get http traffic] ********************************************************
+changed: [localhost]
+
+TASK [show http traffic] *******************************************************
+ok: [localhost] => {
+    "msg": [
+        "",
+        "**********  REQUEST  10.49.6.11:59342  ----->  172.16.4.2:8500  //  2021-03-30T04:17:40.301221+02:00",
+        "GET /v1/kv/consul_test_kv/some/value HTTP/1.1",
+        "Host: 172.16.4.2:8500",
+        "User-Agent: python-requests/2.25.1",
+        "Accept-Encoding: gzip, deflate",
+        "Accept: */*",
+        "Connection: keep-alive",
+        "",
+        "",
+        "**********  RESPONSE  10.49.6.11:59342  <-----  172.16.4.2:8500  //  2021-03-30T04:17:40.301221+02:00 - 2021-03-30T04:17:40.301221+02:00 = 0s",
+        "HTTP/1.1 403 Forbidden",
+        "Content-Encoding: gzip",
+        "Content-Type: text/plain; charset=utf-8",
+        "Vary: Accept-Encoding",
+        "Date: Tue, 30 Mar 2021 02:17:40 GMT",
+        "Content-Length: 64",
+        "",
+        "rpc error making call: Permission denied"
+    ]
+}
+
+TASK [This lookup is finished] *************************************************
+ok: [localhost] => {
+    "msg": "FINISHED WITH LOOKUP"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=12   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+[laminar] sending SIGHUP to adopted child processes
