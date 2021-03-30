@@ -55,4 +55,4 @@ has_default-->[*] : call with param
 }
 @enduml
 
-``` 
+```
