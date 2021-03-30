@@ -126,7 +126,7 @@ class LookupModule(LookupBase):
 
         # get options
         self.set_options(direct=kwargs)
-        key = self.get_option()
+        key = self.params[0]
         scheme = self.get_option('scheme')
         host = self.get_option('host')
         port = self.get_option('port')
