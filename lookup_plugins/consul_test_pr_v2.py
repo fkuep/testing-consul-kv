@@ -126,7 +126,7 @@ class LookupModule(LookupBase):
 
         # get options
         self.set_options(direct=kwargs)
-
+        key = self.get_option('key')
         scheme = self.get_option('scheme')
         host = self.get_option('host')
         port = self.get_option('port')
@@ -151,7 +151,7 @@ class LookupModule(LookupBase):
           consul_api = consul.Consul(host=host, port=port, scheme=scheme, token=token, dc=datacenter,
                                         verify=validate_certs, cert=client_cert)
 
-          results = consul_api.kv.get(_raw[0],
+          results = consul_api.kv.get(key,
                                       index=index,
                                       recurse=recurse,
                                       )
@@ -164,6 +164,6 @@ class LookupModule(LookupBase):
                   values.append(to_text(results[1]['Value']))
         except Exception as e:
             raise AnsibleError(
-                "Error locating '%s' in kv store. Error was %s" % (_raw[0], e))
+                "Error locating '%s' in kv store. Error was %s" % (key, e))
 
         return values
