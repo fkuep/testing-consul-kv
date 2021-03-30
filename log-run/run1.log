@@ -1,0 +1,303 @@
+[laminar] Executing cfg/jobs/consul-kv-github.run
+I ran something
+repo: https://github.com/fkuep/testing-consul-kv.git 
+branch: main 
+From https://github.com/fkuep/testing-consul-kv
+   ca96482..265cc55  main       -> origin/main
+Updating ca96482..265cc55
+Fast-forward
+ playbook.yml | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+/var/lib/laminar/run/consul-kv-github/14
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that
+the implicit localhost does not match 'all'
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [test upstream behaviour] *************************************************
+included: /var/lib/laminar/run/consul-kv-github/14/testing-consul-kv/tasks/test.yml for localhost
+
+TASK [lookup protected key , token set] ****************************************
+included: /var/lib/laminar/run/consul-kv-github/14/testing-consul-kv/tasks/http-dump.yml for localhost
+
+TASK [clear old tcpdump] *******************************************************
+ok: [localhost]
+
+TASK [start tcpdump] ***********************************************************
+changed: [localhost]
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [START LOOKUP AND HTTP LOG] ***********************************************
+fatal: [localhost]: FAILED! => {"msg": "An unhandled exception occurred while templating '{{ lookup('consul_test_kv',consul_key , host=consul_host , scheme=consul_scheme ,port=consul_port, token=consul_token) }}'. Error was a <class 'ansible.errors.AnsibleError'>, original message: An unhandled exception occurred while running the lookup plugin 'consul_test_kv'. Error was a <class 'ansible.errors.AnsibleError'>, original message: Error locating 'consul_test_kv/some/value' in kv store. Error was rpc error making call: Permission denied"}
+...ignoring
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [kill tcpdump] ************************************************************
+changed: [localhost]
+
+TASK [get http traffic] ********************************************************
+changed: [localhost]
+
+TASK [show http traffic] *******************************************************
+ok: [localhost] => {
+    "msg": [
+        "",
+        "**********  REQUEST  10.49.6.11:59288  ----->  172.16.4.2:8500  //  2021-03-30T02:46:37.317361+02:00",
+        "GET /v1/kv/consul_test_kv/some/value HTTP/1.1",
+        "Host: 172.16.4.2:8500",
+        "User-Agent: python-requests/2.25.1",
+        "Accept-Encoding: gzip, deflate",
+        "Accept: */*",
+        "Connection: keep-alive",
+        "",
+        "",
+        "**********  RESPONSE  10.49.6.11:59288  <-----  172.16.4.2:8500  //  2021-03-30T02:46:37.317361+02:00 - 2021-03-30T02:46:37.317361+02:00 = 0s",
+        "HTTP/1.1 403 Forbidden",
+        "Content-Encoding: gzip",
+        "Content-Type: text/plain; charset=utf-8",
+        "Vary: Accept-Encoding",
+        "Date: Tue, 30 Mar 2021 00:46:37 GMT",
+        "Content-Length: 64",
+        "",
+        "rpc error making call: Permission denied"
+    ]
+}
+
+TASK [This lookup is finished] *************************************************
+ok: [localhost] => {
+    "msg": "FINISHED WITH LOOKUP"
+}
+
+TASK [lookup protected key, token not set] *************************************
+included: /var/lib/laminar/run/consul-kv-github/14/testing-consul-kv/tasks/http-dump.yml for localhost
+
+TASK [clear old tcpdump] *******************************************************
+ok: [localhost]
+
+TASK [start tcpdump] ***********************************************************
+changed: [localhost]
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [START LOOKUP AND HTTP LOG] ***********************************************
+fatal: [localhost]: FAILED! => {"msg": "An unhandled exception occurred while templating '{{ lookup('consul_test_kv',consul_key , host=consul_host , scheme=consul_scheme ,port=consul_port, ) }}'. Error was a <class 'ansible.errors.AnsibleError'>, original message: An unhandled exception occurred while running the lookup plugin 'consul_test_kv'. Error was a <class 'ansible.errors.AnsibleError'>, original message: Error locating 'consul_test_kv/some/value' in kv store. Error was rpc error making call: Permission denied"}
+...ignoring
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [kill tcpdump] ************************************************************
+changed: [localhost]
+
+TASK [get http traffic] ********************************************************
+changed: [localhost]
+
+TASK [show http traffic] *******************************************************
+ok: [localhost] => {
+    "msg": [
+        "",
+        "**********  REQUEST  10.49.6.11:59290  ----->  172.16.4.2:8500  //  2021-03-30T02:46:39.917239+02:00",
+        "GET /v1/kv/consul_test_kv/some/value HTTP/1.1",
+        "User-Agent: python-requests/2.25.1",
+        "Accept-Encoding: gzip, deflate",
+        "Accept: */*",
+        "Connection: keep-alive",
+        "Host: 172.16.4.2:8500",
+        "",
+        "",
+        "**********  RESPONSE  10.49.6.11:59290  <-----  172.16.4.2:8500  //  2021-03-30T02:46:39.917239+02:00 - 2021-03-30T02:46:39.917239+02:00 = 0s",
+        "HTTP/1.1 403 Forbidden",
+        "Content-Encoding: gzip",
+        "Content-Type: text/plain; charset=utf-8",
+        "Vary: Accept-Encoding",
+        "Date: Tue, 30 Mar 2021 00:46:39 GMT",
+        "Content-Length: 64",
+        "",
+        "rpc error making call: Permission denied"
+    ]
+}
+
+TASK [This lookup is finished] *************************************************
+ok: [localhost] => {
+    "msg": "FINISHED WITH LOOKUP"
+}
+
+TASK [lookup public key, token not set] ****************************************
+included: /var/lib/laminar/run/consul-kv-github/14/testing-consul-kv/tasks/http-dump.yml for localhost
+
+TASK [clear old tcpdump] *******************************************************
+ok: [localhost]
+
+TASK [start tcpdump] ***********************************************************
+changed: [localhost]
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [START LOOKUP AND HTTP LOG] ***********************************************
+ok: [localhost] => {
+    "msg": {
+        "uniquely": "It can be uniquely annoying, when children ask me thinks, I would like answers to myself.",
+        "zeit": "Wir haben keine Zeit, um über die Zeit zu reden! So viel Zeit haben wir nicht."
+    }
+}
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [kill tcpdump] ************************************************************
+changed: [localhost]
+
+TASK [get http traffic] ********************************************************
+changed: [localhost]
+
+TASK [show http traffic] *******************************************************
+ok: [localhost] => {
+    "msg": [
+        "",
+        "**********  REQUEST  10.49.6.11:59292  ----->  172.16.4.2:8500  //  2021-03-30T02:46:42.538593+02:00",
+        "GET /v1/kv/public/some/value HTTP/1.1",
+        "Accept-Encoding: gzip, deflate",
+        "Accept: */*",
+        "Connection: keep-alive",
+        "Host: 172.16.4.2:8500",
+        "User-Agent: python-requests/2.25.1",
+        "",
+        "",
+        "**********  RESPONSE  10.49.6.11:59292  <-----  172.16.4.2:8500  //  2021-03-30T02:46:42.538593+02:00 - 2021-03-30T02:46:42.538593+02:00 = 0s",
+        "HTTP/1.1 200 OK",
+        "Content-Encoding: gzip",
+        "Content-Type: application/json",
+        "Vary: Accept-Encoding",
+        "X-Consul-Index: 71039",
+        "X-Consul-Knownleader: true",
+        "X-Consul-Lastcontact: 0",
+        "Date: Tue, 30 Mar 2021 00:46:42 GMT",
+        "Content-Length: 314",
+        "",
+        "[",
+        "    {",
+        "        \"CreateIndex\": 71039,",
+        "        \"Flags\": 0,",
+        "        \"Key\": \"public/some/value\",",
+        "        \"LockIndex\": 0,",
+        "        \"ModifyIndex\": 71039,",
+        "        \"Value\": \"ewogInplaXQiOiAiV2lyIGhhYmVuIGtlaW5lIFplaXQsIHVtIMO8YmVyIGRpZSBaZWl0IHp1IHJlZGVuISBTbyB2aWVsIFplaXQgaGFiZW4gd2lyIG5pY2h0LiIsCiAidW5pcXVlbHkiOiAiSXQgY2FuIGJlIHVuaXF1ZWx5IGFubm95aW5nLCB3aGVuIGNoaWxkcmVuIGFzayBtZSB0aGlua3MsIEkgd291bGQgbGlrZSBhbnN3ZXJzIHRvIG15c2VsZi4iCn0=\"",
+        "    }",
+        "]"
+    ]
+}
+
+TASK [This lookup is finished] *************************************************
+ok: [localhost] => {
+    "msg": "FINISHED WITH LOOKUP"
+}
+
+TASK [lookup public key, token set anyway] *************************************
+included: /var/lib/laminar/run/consul-kv-github/14/testing-consul-kv/tasks/http-dump.yml for localhost
+
+TASK [clear old tcpdump] *******************************************************
+ok: [localhost]
+
+TASK [start tcpdump] ***********************************************************
+changed: [localhost]
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [START LOOKUP AND HTTP LOG] ***********************************************
+ok: [localhost] => {
+    "msg": {
+        "uniquely": "It can be uniquely annoying, when children ask me thinks, I would like answers to myself.",
+        "zeit": "Wir haben keine Zeit, um über die Zeit zu reden! So viel Zeit haben wir nicht."
+    }
+}
+
+TASK [pause] *******************************************************************
+Pausing for 1 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[WARNING]: Not waiting for response to prompt as stdin is not interactive
+ok: [localhost]
+
+TASK [kill tcpdump] ************************************************************
+changed: [localhost]
+
+TASK [get http traffic] ********************************************************
+changed: [localhost]
+
+TASK [show http traffic] *******************************************************
+ok: [localhost] => {
+    "msg": [
+        "",
+        "**********  REQUEST  10.49.6.11:59294  ----->  172.16.4.2:8500  //  2021-03-30T02:46:45.163435+02:00",
+        "GET /v1/kv/public/some/value HTTP/1.1",
+        "User-Agent: python-requests/2.25.1",
+        "Accept-Encoding: gzip, deflate",
+        "Accept: */*",
+        "Connection: keep-alive",
+        "Host: 172.16.4.2:8500",
+        "",
+        "",
+        "**********  RESPONSE  10.49.6.11:59294  <-----  172.16.4.2:8500  //  2021-03-30T02:46:45.163435+02:00 - 2021-03-30T02:46:45.163435+02:00 = 0s",
+        "HTTP/1.1 200 OK",
+        "Content-Encoding: gzip",
+        "Content-Type: application/json",
+        "Vary: Accept-Encoding",
+        "X-Consul-Index: 71039",
+        "X-Consul-Knownleader: true",
+        "X-Consul-Lastcontact: 0",
+        "Date: Tue, 30 Mar 2021 00:46:45 GMT",
+        "Content-Length: 314",
+        "",
+        "[",
+        "    {",
+        "        \"CreateIndex\": 71039,",
+        "        \"Flags\": 0,",
+        "        \"Key\": \"public/some/value\",",
+        "        \"LockIndex\": 0,",
+        "        \"ModifyIndex\": 71039,",
+        "        \"Value\": \"ewogInplaXQiOiAiV2lyIGhhYmVuIGtlaW5lIFplaXQsIHVtIMO8YmVyIGRpZSBaZWl0IHp1IHJlZGVuISBTbyB2aWVsIFplaXQgaGFiZW4gd2lyIG5pY2h0LiIsCiAidW5pcXVlbHkiOiAiSXQgY2FuIGJlIHVuaXF1ZWx5IGFubm95aW5nLCB3aGVuIGNoaWxkcmVuIGFzayBtZSB0aGlua3MsIEkgd291bGQgbGlrZSBhbnN3ZXJzIHRvIG15c2VsZi4iCn0=\"",
+        "    }",
+        "]"
+    ]
+}
+
+TASK [This lookup is finished] *************************************************
+ok: [localhost] => {
+    "msg": "FINISHED WITH LOOKUP"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=42   changed=12   unreachable=0    failed=0    skipped=0    rescued=0    ignored=2   
+
+[laminar] sending SIGHUP to adopted child processes
