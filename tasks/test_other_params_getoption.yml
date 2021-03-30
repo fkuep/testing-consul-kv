@@ -7,7 +7,7 @@
       host=consul_host , \
       scheme=consul_scheme ,\
       port=consul_port, \
-      recurse=yes,\
+      recurse='yes',\
       datacenter=consul_datacenter, \
       index=1 ,
       token=consul_token) }}"
