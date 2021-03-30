@@ -151,7 +151,7 @@ class LookupModule(LookupBase):
           consul_api = consul.Consul(host=host, port=port, scheme=scheme, token=token, dc=datacenter,
                                         verify=validate_certs, cert=client_cert)
 
-          results = consul_api.kv.get(params['key'],
+          results = consul_api.kv.get(_raw[0],
                                       index=index,
                                       recurse=recurse,
                                       )
@@ -164,6 +164,6 @@ class LookupModule(LookupBase):
                   values.append(to_text(results[1]['Value']))
         except Exception as e:
             raise AnsibleError(
-                "Error locating '%s' in kv store. Error was %s" % (params['key'], e))
+                "Error locating '%s' in kv store. Error was %s" % (_raw[0], e))
 
         return values
