@@ -37,6 +37,9 @@
 #    include_tasks: tasks/test_other_params.yml
 
 
-  - name: test pr2126 b60b643 version behauviour on more parameters
-    include_tasks: tasks/test_other_params_getoption.yml
+#  - name: test pr2126 b60b643 version behauviour on more parameters
+#    include_tasks: tasks/test_other_params_getoption.yml
+
+  - name: test suggested version behauviour on more parameters
+    include_tasks: tasks/test_other_getmoreoptions.yml
     
