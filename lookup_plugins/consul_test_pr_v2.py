@@ -148,22 +148,20 @@ class LookupModule(LookupBase):
 
         values = []
         try:
-            for term in terms:
-                params = self.parse_params(term)
-                consul_api = consul.Consul(host=host, port=port, scheme=scheme, token=token, dc=datacenter,
-                                              verify=validate_certs, cert=client_cert)
+          consul_api = consul.Consul(host=host, port=port, scheme=scheme, token=token, dc=datacenter,
+                                        verify=validate_certs, cert=client_cert)
 
-                results = consul_api.kv.get(params['key'],
-                                            index=index,
-                                            recurse=recurse,
-                                            )
-                if results[1]:
-                    # responds with a single or list of result maps
-                    if isinstance(results[1], list):
-                        for r in results[1]:
-                            values.append(to_text(r['Value']))
-                    else:
-                        values.append(to_text(results[1]['Value']))
+          results = consul_api.kv.get(params['key'],
+                                      index=index,
+                                      recurse=recurse,
+                                      )
+          if results[1]:
+              # responds with a single or list of result maps
+              if isinstance(results[1], list):
+                  for r in results[1]:
+                      values.append(to_text(r['Value']))
+              else:
+                  values.append(to_text(results[1]['Value']))
         except Exception as e:
             raise AnsibleError(
                 "Error locating '%s' in kv store. Error was %s" % (term, e))
