@@ -142,7 +142,7 @@ class LookupModule(LookupBase):
         token = self.get_option('token')
         datacenter=self.get_option('datacenter')
         recurse=self.get_option('recurse')
-        myindex=self.get_option('index')
+        index=self.get_option('index')
         validate_certs = self.get_option('validate_certs')
         client_cert = self.get_option('client_cert')
 
@@ -150,14 +150,13 @@ class LookupModule(LookupBase):
         try:
             for term in terms:
                 params = self.parse_params(term)
-                consul_api = consul.Consul(host=host, port=port, scheme=scheme, token=token, datacenter=datacenter,
-                                           recurse=recurse, index=myindex,  verify=validate_certs, cert=client_cert)
+                consul_api = consul.Consul(host=host, port=port, scheme=scheme, token=token, dc=datacenter,
+                                              verify=validate_certs, cert=client_cert)
 
                 results = consul_api.kv.get(params['key'],
-                                            token=params['token'],
-                                            index=params['index'],
-                                            recurse=params['recurse'],
-                                            dc=params['datacenter'])
+                                            index=index,
+                                            recurse=recurse,
+                                            )
                 if results[1]:
                     # responds with a single or list of result maps
                     if isinstance(results[1], list):
