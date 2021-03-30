@@ -26,11 +26,11 @@
 #        port=consul_port, \
 #        ) }}"
 
-  - name: test upstream behaviour
-    include_tasks: tasks/test.yml
+#  - name: test upstream behaviour
+#    include_tasks: tasks/test.yml
 
-#  - name: test  pr2126 b60b643 version behauviour
-#    include_tasks: tasks/test_getoption.yml
+  - name: test  pr2126 b60b643 version behauviour
+    include_tasks: tasks/test_getoption.yml
 
 
     
