@@ -1,0 +1,51 @@
+---
+
+- name: lookup protected key, token set
+  include_tasks: tasks/http-dump.yml
+  vars:
+    lookup_string: "{{ lookup('consul_test_pr_v2',consul_key , \
+      host=consul_host , \
+      scheme=consul_scheme ,\
+      port=consul_port, \
+      token=consul_token) }}"
+
+- name: lookup protected key, token not set
+  include_tasks: tasks/http-dump.yml
+  vars:
+    lookup_string: "{{ lookup('consul_test_pr_v2',consul_key , \
+      host=consul_host , \
+      scheme=consul_scheme ,\
+      port=consul_port, \
+      ) }}"      
+
+- name: lookup public key, token not set  
+  include_tasks: tasks/http-dump.yml
+  vars:
+    lookup_string: "{{ lookup('consul_test_pr_v2',consul_key_public , \
+      host=consul_host , \
+      scheme=consul_scheme ,\
+      port=consul_port, \
+      ) }}"
+
+
+- name: lookup public key, token set anyway  
+  include_tasks: tasks/http-dump.yml
+  vars:
+    lookup_string: "{{ lookup('consul_test_pr_v2',consul_key_public , \
+      host=consul_host , \
+      scheme=consul_scheme ,\
+      port=consul_port, \
+      token=consul_token) }}"
+
+
+- name: lookup protected key , token , datacenter, recurse and index set
+  include_tasks: tasks/http-dump.yml
+  vars:
+    lookup_string: "{{ lookup('consul_test_pr_v2',consul_key , \
+      host=consul_host , \
+      scheme=consul_scheme ,\
+      port=consul_port, \
+      recurse='yes',\
+      datacenter=consul_valid_dc, \
+      index=1 ,
+      token=consul_token) }}"
