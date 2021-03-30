@@ -164,6 +164,6 @@ class LookupModule(LookupBase):
                   values.append(to_text(results[1]['Value']))
         except Exception as e:
             raise AnsibleError(
-                "Error locating '%s' in kv store. Error was %s" % (term, e))
+                "Error locating '%s' in kv store. Error was %s" % (params['key'], e))
 
         return values
