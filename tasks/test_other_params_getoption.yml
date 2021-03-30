@@ -8,6 +8,6 @@
       scheme=consul_scheme ,\
       port=consul_port, \
       recurse='yes',\
-      datacenter=consul_datacenter, \
+      datacenter=consul_valid_dc, \
       index=1 ,
       token=consul_token) }}"
