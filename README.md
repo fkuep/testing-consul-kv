@@ -16,7 +16,7 @@ I currently see two problems:
 
 ## Notes on my little ci
 * I have set a trigger that runs playbook.yml on my infrastructure against my consul.
-* Logs are automatically published to https://publog.ci.fkuep.de/consul-kv-github/RUN-NUMBER
+* Logs are automatically published to [https://publog.ci.fkuep.de/consul-kv-github/RUN-NUMBER](https://publog.ci.fkuep.de/consul-kv-github/)
   * index.html has html of colored output
   * console-ascii-consul-kv-github-RUN-NUMBER.log is the console log in ascii with ansi-color removed
     * e.g `curl https://publog.ci.fkuep.de/consul-kv-github/9/console-ansi-consul-kv-github-9.log|  less `
