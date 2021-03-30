@@ -14,9 +14,19 @@ I currently see two problems:
 ![image](images/config_state.svg)
 
 
+## Notes on my little ci
+* I have set a trigger that runs playbook.yml on my infrastructure against my consul.
+* Logs are automatically published to https://publog.ci.fkuep.de/consul-kv-github/RUN-NUMBER
+  * index.html has html of colored output
+  * console-ascii-consul-kv-github-RUN-NUMBER.log is the console log in ascii with ansi-color removed
+    * e.g `curl https://publog.ci.fkuep.de/consul-kv-github/9/console-ansi-consul-kv-github-9.log|  less `
+  * console-ansi-consul-kv-github-RUN-NUMBER.log is the consule log with ansi colors. 
+    * e.g: `curl https://publog.ci.fkuep.de/consul-kv-github/9/console-ansi-consul-kv-github-9.log|  less -r`
 
 
-##### plantuml of that
+
+##### plantuml of that " desired configuration state" 
+* I am keepinh that as a reference
 ``` plantuml
 
 @startuml
