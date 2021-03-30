@@ -3,12 +3,13 @@ I ran something
 repo: https://github.com/fkuep/testing-consul-kv.git 
 branch: main 
 From https://github.com/fkuep/testing-consul-kv
-   a809d95..2c15f92  main       -> origin/main
-Updating a809d95..2c15f92
+   2c15f92..99e7b48  main       -> origin/main
+Updating 2c15f92..99e7b48
 Fast-forward
- tasks/test_other_params.yml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-/var/lib/laminar/run/consul-kv-github/19
+ playbook.yml                          | 8 ++++----
+ tasks/test_other_params_getoption.yml | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+/var/lib/laminar/run/consul-kv-github/20
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that
 the implicit localhost does not match 'all'
@@ -18,11 +19,11 @@ PLAY [localhost] ***************************************************************
 TASK [Gathering Facts] *********************************************************
 ok: [localhost]
 
-TASK [test upstream version behauviour on more parameters] *********************
-included: /var/lib/laminar/run/consul-kv-github/19/testing-consul-kv/tasks/test_other_params.yml for localhost
+TASK [test pr2126 b60b643 version behauviour on more parameters] ***************
+included: /var/lib/laminar/run/consul-kv-github/20/testing-consul-kv/tasks/test_other_params_getoption.yml for localhost
 
 TASK [lookup protected key , token , datacenter, recurse and index set] ********
-included: /var/lib/laminar/run/consul-kv-github/19/testing-consul-kv/tasks/http-dump.yml for localhost
+included: /var/lib/laminar/run/consul-kv-github/20/testing-consul-kv/tasks/http-dump.yml for localhost
 
 TASK [clear old tcpdump] *******************************************************
 ok: [localhost]
@@ -37,8 +38,12 @@ Pausing for 1 seconds
 ok: [localhost]
 
 TASK [START LOOKUP AND HTTP LOG] ***********************************************
-fatal: [localhost]: FAILED! => {"msg": "An unhandled exception occurred while templating '{{ lookup('consul_test_kv',consul_key , host=consul_host , scheme=consul_scheme ,port=consul_port, recurse='yes',datacenter=consul_datacenter, index=1 , token=consul_token) }}'. Error was a <class 'ansible.errors.AnsibleError'>, original message: An unhandled exception occurred while running the lookup plugin 'consul_test_kv'. Error was a <class 'ansible.errors.AnsibleError'>, original message: Error locating 'consul_test_kv/some/value' in kv store. Error was rpc error making call: Permission denied"}
-...ignoring
+ok: [localhost] => {
+    "msg": {
+        "ansible": "is community driven",
+        "optional-result": "the community drives You"
+    }
+}
 
 TASK [pause] *******************************************************************
 Pausing for 1 seconds
@@ -56,8 +61,8 @@ TASK [show http traffic] *******************************************************
 ok: [localhost] => {
     "msg": [
         "",
-        "**********  REQUEST  10.49.6.11:59342  ----->  172.16.4.2:8500  //  2021-03-30T04:17:40.301221+02:00",
-        "GET /v1/kv/consul_test_kv/some/value HTTP/1.1",
+        "**********  REQUEST  10.49.6.11:59348  ----->  172.16.4.2:8500  //  2021-03-30T04:20:00.081734+02:00",
+        "GET /v1/kv/consul_test_kv/some/value?token=b759c2df-d84e-87e1-bc53-8a662837a272 HTTP/1.1",
         "Host: 172.16.4.2:8500",
         "User-Agent: python-requests/2.25.1",
         "Accept-Encoding: gzip, deflate",
@@ -65,15 +70,27 @@ ok: [localhost] => {
         "Connection: keep-alive",
         "",
         "",
-        "**********  RESPONSE  10.49.6.11:59342  <-----  172.16.4.2:8500  //  2021-03-30T04:17:40.301221+02:00 - 2021-03-30T04:17:40.301221+02:00 = 0s",
-        "HTTP/1.1 403 Forbidden",
+        "**********  RESPONSE  10.49.6.11:59348  <-----  172.16.4.2:8500  //  2021-03-30T04:20:00.081734+02:00 - 2021-03-30T04:20:00.081734+02:00 = 0s",
+        "HTTP/1.1 200 OK",
         "Content-Encoding: gzip",
-        "Content-Type: text/plain; charset=utf-8",
+        "Content-Type: application/json",
         "Vary: Accept-Encoding",
-        "Date: Tue, 30 Mar 2021 02:17:40 GMT",
-        "Content-Length: 64",
+        "X-Consul-Index: 61399",
+        "X-Consul-Knownleader: true",
+        "X-Consul-Lastcontact: 0",
+        "Date: Tue, 30 Mar 2021 02:20:00 GMT",
+        "Content-Length: 221",
         "",
-        "rpc error making call: Permission denied"
+        "[",
+        "    {",
+        "        \"CreateIndex\": 61399,",
+        "        \"Flags\": 0,",
+        "        \"Key\": \"consul_test_kv/some/value\",",
+        "        \"LockIndex\": 0,",
+        "        \"ModifyIndex\": 61399,",
+        "        \"Value\": \"ewogImFuc2libGUiOiAiaXMgY29tbXVuaXR5IGRyaXZlbiIsCiAib3B0aW9uYWwtcmVzdWx0IjogInRoZSBjb21tdW5pdHkgZHJpdmVzIFlvdSIKfQ==\"",
+        "    }",
+        "]"
     ]
 }
 
@@ -83,6 +100,6 @@ ok: [localhost] => {
 }
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=12   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+localhost                  : ok=12   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 [laminar] sending SIGHUP to adopted child processes
