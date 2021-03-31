@@ -1,0 +1,6 @@
+--- 
+
+- debug: "output public value"
+    msg: 'key contains {{item}}'
+  with_consul_test_kv:
+    - 'consul_key_public'

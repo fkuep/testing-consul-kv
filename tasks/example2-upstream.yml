@@ -1,0 +1,6 @@
+--- 
+- name: Parameters can be provided after the key be more specific about what to retrieve
+  ansible.builtin.debug:
+    msg: 'key contains {{item}}'
+  with_consul_test_kv:
+    - 'consul_key recurse=true token=consul_token'

@@ -1,0 +1,37 @@
+---
+
+    - name: clear old tcpdump
+      file:
+       path: dump_file
+       state: absent
+
+    - name: start tcpdump
+#      become: true
+      command: tcpdump host 172.16.4.2   -w {{dump_file}}
+      async: 60
+      poll: 0
+
+    - pause: seconds=1
+
+    - name: "START LOOKUP AND HTTP LOG for task. "
+      include_tasks: "{{http-dump-task}}"
+
+
+
+
+    - pause: seconds=1 
+
+    - name: kill tcpdump
+      command: /usr/bin/pkill tcpdump
+
+    - name: get http traffic
+      command: ~/go/bin/httpdump -file {{dump_file}} -level all
+      register: http_traffic
+
+    - name: show http traffic
+      debug:
+        msg: "{{ http_traffic.stdout_lines}}"
+
+    - name: This lookup is finished
+      debug: 
+       msg:  FINISHED WITH LOOKUP 
