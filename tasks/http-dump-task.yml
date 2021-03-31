@@ -11,7 +11,7 @@
       async: 60
       poll: 0
 
-    - pause: seconds=1
+    - pause: seconds=2
 
     - name: "START LOOKUP AND HTTP LOG for task. "
       include_tasks: "{{http_dump_task}}"
@@ -19,7 +19,7 @@
 
 
 
-    - pause: seconds=1 
+    - pause: seconds=2 
 
     - name: kill tcpdump
       command: /usr/bin/pkill tcpdump
