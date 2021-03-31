@@ -3,7 +3,7 @@
 
 - name: retrieving a KV from a remote cluster on non default port
   ansible.builtin.debug:
-    msg: "{{ lookup('consul_test_kv', consul_key_with_token, host=consul_host, port=consul_port) }}"
+    msg: "{{ lookup('consul_test_kv', consul_key_with_token, host=consul_host, port=consul_port, typoparamter='noerror') }}"
   ignore_errors: yes
 
   
