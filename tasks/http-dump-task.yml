@@ -7,7 +7,7 @@
 
     - name: start tcpdump
 #      become: true
-      command: tcpdump host 172.16.4.2 or host 127.0.0.1 and port not 22  -w {{dump_file}}
+      command: tcpdump host 172.16.4.2 or host 127.0.0.1   -w {{dump_file}}
       async: 60
       poll: 0
 
