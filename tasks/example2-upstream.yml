@@ -4,3 +4,5 @@
     msg: 'key contains {{item}}'
   with_consul_test_kv:
     - 'consul_key recurse=true token=consul_token'
+  ignore_errors: yes
+  
