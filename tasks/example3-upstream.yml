@@ -5,4 +5,5 @@
   ansible.builtin.debug:
     msg: "{{ lookup('consul_test_kv', consul_key_public, host=consul_host, port=consul_port) }}"
   ignore_errors: yes
+
   
