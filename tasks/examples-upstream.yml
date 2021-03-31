@@ -2,16 +2,16 @@
 - name: first example
   include_tasks: tasks/http-dump-task.yml
   vars:
-    http-dump-task: "tasks/example1-upstream.yml"
+    http_dump_task: "tasks/example1-upstream.yml"
 
 - name: 2nd example with_ and token and recurse
   include_tasks: tasks/http-dump-task.yml
   vars:
-    http-dump-task: "tasks/example2-upstream.yml"
+    http_dump_task: "tasks/example2-upstream.yml"
 
 
 - name: 3nd example lookup with host and port
   include_tasks: tasks/http-dump-task.yml
   vars:
-    http-dump-task: "tasks/example3-upstream.yml"
+    http_dump_task: "tasks/example3-upstream.yml"
 
