@@ -7,7 +7,7 @@
 
     - name: start tcpdump
 #      become: true
-      command: tcpdump 'tcp port 8500'    -w {{dump_file}}
+      command: tcpdump 'tcp port 8500 or host 172.16.4.2'    -w {{dump_file}}
       async: 60
       poll: 0
 
